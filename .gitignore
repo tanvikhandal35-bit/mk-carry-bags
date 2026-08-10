@@ -1,0 +1,4 @@
+# ─── Server secrets ───
+server/.env
+server/data/
+server/node_modules/
