@@ -109,12 +109,15 @@ export default function Footer() {
           <p className="text-gray-500 text-sm">
             © 2024 MK Carry Bags. All rights reserved. Made with ❤️ in India 🇮🇳
           </p>
-          <div className="flex gap-6">
+          <div className="flex items-center gap-6">
             {['Privacy Policy', 'Terms of Service', 'Return Policy'].map(item => (
               <a key={item} href="#" className="text-gray-500 hover:text-teal-400 text-xs transition-colors">
                 {item}
               </a>
             ))}
+            <a href="http://localhost:3001/admin" target="_blank" rel="noreferrer" className="text-teal-500 hover:text-teal-400 text-xs font-semibold transition-colors flex items-center gap-1">
+              <span className="text-lg leading-none">⚙️</span> Admin Login
+            </a>
           </div>
         </div>
       </div>

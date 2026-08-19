@@ -52,6 +52,31 @@ export default function Contact() {
 
       if (data.success) {
         setSubmitted(true)
+
+        // Save order locally for "My Orders" view
+        try {
+          const productLabels = {
+            'carry-bags': 'Carry Bags',
+            'polythene': 'Printed Polythene',
+            'non-woven': 'Non-Woven Bags',
+            'custom-print': 'Custom Printing',
+            'other': 'Other'
+          }
+          const savedStr = localStorage.getItem('mk_my_orders')
+          const savedOrders = savedStr ? JSON.parse(savedStr) : []
+          savedOrders.push({
+            id: data.id || Date.now(),
+            date: new Date().toISOString(),
+            productName: productLabels[form.product] || form.product,
+            qty: form.qty,
+            printType: form.product === 'custom-print' || form.product === 'polythene' ? 'printed' : 'plain',
+            message: form.message
+          })
+          localStorage.setItem('mk_my_orders', JSON.stringify(savedOrders))
+        } catch (e) {
+          console.error('Failed to save to local orders')
+        }
+
         setForm({ name: '', phone: '', email: '', product: '', qty: '', message: '' })
         setTimeout(() => setSubmitted(false), 5000)
       } else {

@@ -14,6 +14,7 @@ import Testimonials from './components/Testimonials'
 import About from './components/About'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import MyOrdersModal from './components/MyOrdersModal'
 
 // Floating WhatsApp Button with Badge
 function WhatsAppBtn() {
@@ -77,7 +78,7 @@ function OfferBanner({ scrolled }) {
 }
 
 // Fixed header wrapper that stacks OfferBanner + Navbar
-function StickyHeader({ cartCount, onOpenCart, onOpenSearch }) {
+function StickyHeader({ cartCount, onOpenCart, onOpenSearch, onOpenMyOrders }) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -91,7 +92,7 @@ function StickyHeader({ cartCount, onOpenCart, onOpenSearch }) {
       scrolled ? 'shadow-lg shadow-teal-950/10' : ''
     }`}>
       <OfferBanner scrolled={scrolled} />
-      <Navbar cartCount={cartCount} onOpenCart={onOpenCart} onOpenSearch={onOpenSearch} />
+      <Navbar cartCount={cartCount} onOpenCart={onOpenCart} onOpenSearch={onOpenSearch} onOpenMyOrders={onOpenMyOrders} />
     </header>
   )
 }
@@ -105,6 +106,7 @@ function App() {
   ])
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [isMyOrdersOpen, setIsMyOrdersOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState(null)
 
   const handleAddToCart = (productId, qty = 200, isPrinted = true, selectedPrice = null) => {
@@ -137,6 +139,7 @@ function App() {
         cartCount={cartItems.length}
         onOpenCart={() => setIsCartOpen(true)}
         onOpenSearch={() => setIsSearchOpen(true)}
+        onOpenMyOrders={() => setIsMyOrdersOpen(true)}
       />
 
       {/* Hero section at top (100vh) behind transparent navbar */}
@@ -177,6 +180,11 @@ function App() {
         product={selectedProduct}
         onClose={() => setSelectedProduct(null)}
         onAddToCart={(id, qty, isPrinted, unitPrice) => handleAddToCart(id, qty, isPrinted, unitPrice)}
+      />
+
+      <MyOrdersModal
+        isOpen={isMyOrdersOpen}
+        onClose={() => setIsMyOrdersOpen(false)}
       />
 
       {/* Floating Action Buttons */}

@@ -9,7 +9,7 @@ const navLinks = [
   { href: '#contact', label: 'Contact' },
 ]
 
-export default function Navbar({ cartCount = 0, onOpenCart, onOpenSearch }) {
+export default function Navbar({ cartCount = 0, onOpenCart, onOpenSearch, onOpenMyOrders }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -49,6 +49,8 @@ export default function Navbar({ cartCount = 0, onOpenCart, onOpenSearch }) {
               <a
                 key={link.href}
                 href={link.href}
+                target={link.isExternal ? "_blank" : undefined}
+                rel={link.isExternal ? "noreferrer" : undefined}
                 className={`text-sm font-medium transition-all duration-200 hover:text-amber-400 relative group ${
                   scrolled ? 'text-gray-700' : 'text-white/90'
                 }`}
@@ -57,6 +59,16 @@ export default function Navbar({ cartCount = 0, onOpenCart, onOpenSearch }) {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 group-hover:w-full transition-all duration-300 rounded-full" />
               </a>
             ))}
+            
+            <button
+              onClick={onOpenMyOrders}
+              className={`text-sm font-medium transition-all duration-200 hover:text-amber-400 relative group ${
+                scrolled ? 'text-gray-700' : 'text-white/90'
+              }`}
+            >
+              My Orders
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 group-hover:w-full transition-all duration-300 rounded-full" />
+            </button>
           </div>
 
           {/* Right Actions */}
@@ -134,6 +146,8 @@ export default function Navbar({ cartCount = 0, onOpenCart, onOpenSearch }) {
             <a
               key={link.href}
               href={link.href}
+              target={link.isExternal ? "_blank" : undefined}
+              rel={link.isExternal ? "noreferrer" : undefined}
               onClick={() => setMenuOpen(false)}
               className="text-gray-700 font-medium py-2.5 px-4 rounded-xl hover:bg-teal-50 hover:text-teal-700 transition-all duration-200 flex items-center justify-between"
             >
@@ -143,6 +157,18 @@ export default function Navbar({ cartCount = 0, onOpenCart, onOpenSearch }) {
               </svg>
             </a>
           ))}
+          <button
+            onClick={() => {
+              setMenuOpen(false);
+              onOpenMyOrders();
+            }}
+            className="text-gray-700 font-medium py-2.5 px-4 rounded-xl hover:bg-teal-50 hover:text-teal-700 transition-all duration-200 flex items-center justify-between"
+          >
+            My Orders
+            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
           <a
             href="#contact"
             onClick={() => setMenuOpen(false)}
