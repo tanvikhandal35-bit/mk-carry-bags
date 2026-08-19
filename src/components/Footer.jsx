@@ -115,7 +115,7 @@ export default function Footer() {
                 {item}
               </a>
             ))}
-            <a href="http://localhost:3001/admin" target="_blank" rel="noreferrer" className="text-teal-500 hover:text-teal-400 text-xs font-semibold transition-colors flex items-center gap-1">
+            <a href="https://mk-carry-bags-backend.vercel.app/admin" target="_blank" rel="noreferrer" className="text-teal-500 hover:text-teal-400 text-xs font-semibold transition-colors flex items-center gap-1">
               <span className="text-lg leading-none">⚙️</span> Admin Login
             </a>
           </div>
